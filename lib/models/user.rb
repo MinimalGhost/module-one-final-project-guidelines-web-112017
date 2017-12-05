@@ -31,9 +31,38 @@ class User < ActiveRecord::Base
     home_screen(self)
   end
 
-  def add_review
+  def finish_book(book_title)
+    puts "Congratulations! Would you like to review #{book}? Type Y/N"
+    response = gets.chomp
+    if response.downcase = 'y'
+
+    end
+  end
+
+  def quit_book(book_title)
+
+  end
+
+  def add_review(book_title)
     puts "Type the title of the book you would like to review:"
     book_to_review = gets.chomp
-    
+    #look up book by title and compare id with Review.book_id and self.id with Review.user_id
+    Books.find(title: book_to_review)
+
+    #if there is a match, allow them to update review instance
+
+    #else create Review and add associations, then allow user to fill out fields
+  end
+
+  def edit_review(book_title)
+
+  end
+
+  def list_books_in_progress
+
+  end
+
+  def top_10_by_genre(genre)
+
   end
 end

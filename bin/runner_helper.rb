@@ -21,6 +21,6 @@ def home_screen(user)
     user.add_book
   end
   when 2
-    user.add_review
+    user.finish_book
   end
 end
