@@ -31,12 +31,10 @@ class User < ActiveRecord::Base
     home_screen(self)
   end
 
-  def finish_book(book_title)
-    puts "Congratulations! Would you like to review #{book}? Type Y/N"
-    response = gets.chomp
-    if response.downcase = 'y'
+  def finish_book
+    puts "Congratulations! Which book did you finish?"
 
-    end
+
   end
 
   def quit_book(book_title)
@@ -59,10 +57,14 @@ class User < ActiveRecord::Base
   end
 
   def list_books_in_progress
+    arr = self.reviews.all.select do |r|
+      r.status == "in progress"
+    end.map { |r| r.book_id }
 
-  end
+    Book.all.select do |b|
+      arr.any? { |r| r == b.id }
+    end.map { |book| puts "#{book.title}" }
 
-  def top_10_by_genre(genre)
 
   end
 end

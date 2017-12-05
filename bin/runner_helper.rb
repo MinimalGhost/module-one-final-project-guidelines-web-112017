@@ -15,12 +15,18 @@ def home_screen(user)
   puts "Your commands options are"
   puts "1. add_book"
   puts "2. add_review"
+  puts "3. list_books_in_progress"
+  puts "4. finish_book"
+  puts "5. quit_book"
+  puts "6. edit_review"
+  puts "7. some_method"
   input = gets.chomp.to_i
   case input
   when 1
     user.add_book
-  end
   when 2
-    user.finish_book
+    # user.add_review
+  when 3
+    user.list_books_in_progress
   end
 end
