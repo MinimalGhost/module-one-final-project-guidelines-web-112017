@@ -12,10 +12,15 @@ end
 
 def home_screen(user)
   puts "Welcome #{user.first_name} #{user.last_name}"
-  puts "Your commands are 1. add_review"
+  puts "Your commands options are"
+  puts "1. add_book"
+  puts "2. add_review"
   input = gets.chomp.to_i
   case input
   when 1
     user.add_book
+  end
+  when 2
+    user.add_review
   end
 end

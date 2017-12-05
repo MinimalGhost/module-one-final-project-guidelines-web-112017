@@ -28,5 +28,12 @@ class User < ActiveRecord::Base
 
   def start_book(book)
     Review.create(book_id: book.id, user_id: self.id, start_date: Date.new, status: "in progress")
+    home_screen(self)
+  end
+
+  def add_review
+    puts "Type the title of the book you would like to review:"
+    book_to_review = gets.chomp
+    
   end
 end
