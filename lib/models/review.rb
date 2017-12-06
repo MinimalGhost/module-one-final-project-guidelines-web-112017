@@ -3,21 +3,14 @@ class Review < ActiveRecord::Base
   belongs_to :book
 
   def self.top_10_highest_rated
-    best_reviews = Review.joins(:solutions)
-    .select("users.*, count(solutions.id) as scount")
-    .group("users.id")
-    .order("scount DESC")
-
-    # best_reviews = Review.select().joins(:book).where("orders_count = '2'")
-    # <<-SQL
-    # SELECT b.title, AVG(r.rating) FROM reviews r
-    # INNER JOIN books b on r.book_id = b.id
-    # GROUP BY r.book_id
-    # ORDER BY AVG(r.rating) DESC
-    # LIMIT 10
-    # SQL
-    #
+    best_reviews = Book.joins(:reviews).select("books.*, avg(reviews.rating) as average_rating").group("books.id").order("average_rating DESC")
     # binding.pry
+    best_reviews.each do |b|
+      puts "Title: #{b.title}"
+      puts "Author: #{b.author}"
+      puts "Description: #{b.description}"
+      puts "______________________________"
+    end
   end
 
   def add_review_info
