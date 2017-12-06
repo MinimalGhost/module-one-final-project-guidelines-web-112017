@@ -19,7 +19,8 @@ def home_screen(user)
   puts "4. finish_book"
   puts "5. quit_book"
   puts "6. edit_review"
-  puts "7. some_method"
+  puts "7. list top books"
+  puts "8.  recommend a book"
   input = gets.chomp.to_i
   case input
   when 1
@@ -28,5 +29,10 @@ def home_screen(user)
     # user.add_review
   when 3
     user.list_books_in_progress
+
+  when 7
+    Book.top_10_by_genre
+  when 8
+    Book.recommend_book
   end
 end

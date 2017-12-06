@@ -2,12 +2,16 @@ class Book < ActiveRecord::Base
   has_many :reviews
   has_many :users, through: :reviews
 
-  def self.top_10_by_genre(genre)
-    Book.all.order(:rating).where("genre = ?", genre).limit(10)
+  def self.top_10_by_genre
+    puts "What genre would you like to search?"
+    genre = gets.chomp
+    #Book.all.order(:rating).where("genre = ?", genre).limit(10).each { |b| puts b.title  }
+    Book.all.where("genre = ?", genre).limit(10).each { |b| puts b.title  }
   end
 
-  def recommend_book
-    Book.find(rand)
+  def self.recommend_book
+    random_number = rand(Book.last.id)
+    puts Book.find(random_number).title
   end
 
   def add_book_info
