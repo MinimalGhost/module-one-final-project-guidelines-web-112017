@@ -14,11 +14,16 @@ class User < ActiveRecord::Base
 
   def start_book(book)
     Review.create(book_id: book.id, user_id: self.id, start_date: Date.new, status: "in progress")
-    home_screen(self)
   end
 
-  def quit_book(book_title)
-
+  def get_reviews_by_book
+    book = Book.find_by_title
+    book.reviews.each do |r|
+      puts "Title: #{r.book.title}"
+      puts "Rating: #{r.rating}"
+      puts "Description: #{r.description}"
+      puts "______________________________"
+    end
   end
 
   def add_review

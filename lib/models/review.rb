@@ -2,20 +2,49 @@ class Review < ActiveRecord::Base
   belongs_to :user
   belongs_to :book
 
+  def self.top_10_highest_rated
+    best_reviews = Review.joins(:solutions)
+    .select("users.*, count(solutions.id) as scount")
+    .group("users.id")
+    .order("scount DESC")
+
+    # best_reviews = Review.select().joins(:book).where("orders_count = '2'")
+    # <<-SQL
+    # SELECT b.title, AVG(r.rating) FROM reviews r
+    # INNER JOIN books b on r.book_id = b.id
+    # GROUP BY r.book_id
+    # ORDER BY AVG(r.rating) DESC
+    # LIMIT 10
+    # SQL
+    #
+    # binding.pry
+  end
+
   def add_review_info
+    enter_review_rating
+    enter_review_description
+    review_date_status
+    self.save
+  end
+
+  def enter_review_rating
     puts "Rate this book between 0 and 5"
     user_rating = Integer(gets) rescue -1
     if user_rating.to_i > 5 || user_rating.to_i < 0
       add_review_info
     end
-    # binding.pry
     self.rating = user_rating.to_i
+  end
+
+  def enter_review_description
     puts "Write a short review of the book:"
     user_description = gets.chomp
     self.description = user_description
+  end
+
+  def review_date_status
     self.end_date = Date.new
     self.status = "completed"
-    self.save
   end
 
   def edit_review_info
