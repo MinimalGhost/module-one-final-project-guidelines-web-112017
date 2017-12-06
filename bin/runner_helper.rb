@@ -32,7 +32,9 @@ def home_screen(user)
 
   when 7
     Book.top_10_by_genre
+    home_screen(user)
   when 8
     Book.recommend_book
+    home_screen(user)
   end
 end
