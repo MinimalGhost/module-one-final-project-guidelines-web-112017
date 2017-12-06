@@ -17,29 +17,33 @@ class User < ActiveRecord::Base
     home_screen(self)
   end
 
-  def finish_book
-    puts "Congratulations! Which book did you finish?"
-
-
-  end
-
   def quit_book(book_title)
 
   end
 
-  def add_review(book_title)
+  def add_review
     puts "Type the title of the book you would like to review:"
     book_to_review = gets.chomp
     #look up book by title and compare id with Review.book_id and self.id with Review.user_id
-    Books.find(title: book_to_review)
-
+    book = Book.find_by(title: book_to_review)
     #if there is a match, allow them to update review instance
-
-    #else create Review and add associations, then allow user to fill out fields
+    if book.title = book_to_review
+      myReview = Review.find_or_create_by(user_id: self.id, book_id: book.id)
+      myReview.add_review_info
+    else
+      #else tell them that book doesnt exist and return user to home screen
+      puts "That book does not exist!"
+      home_screen(self)
+    end
   end
 
-  def edit_review(book_title)
-
+  def edit_review
+    puts "Enter the book title for the review you want to edit:"
+    book_title = gets.chomp
+    book = Book.find_by(title: book_title)
+    myReview = Review.find_by(user_id: self.id, book_id: book.id)
+    myReview.edit_review_info
+    home_screen(self)
   end
 
   def list_books_in_progress

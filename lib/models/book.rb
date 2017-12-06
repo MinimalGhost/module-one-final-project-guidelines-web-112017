@@ -27,5 +27,6 @@ class Book < ActiveRecord::Base
     puts "Enter a brief description of the book"
     book_description = gets.chomp
     self.description = book_description
+    self.save
   end
 end

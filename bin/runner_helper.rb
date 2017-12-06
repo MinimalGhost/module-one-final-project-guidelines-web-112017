@@ -13,28 +13,31 @@ end
 def home_screen(user)
   puts "Welcome #{user.first_name} #{user.last_name}"
   puts "Your commands options are"
-  puts "1. add_book"
-  puts "2. add_review"
-  puts "3. list_books_in_progress"
-  puts "4. finish_book"
-  puts "5. quit_book"
-  puts "6. edit_review"
-  puts "7. list top books"
-  puts "8.  recommend a book"
+  puts "1. Add a book"
+  puts "2. Add a review"
+  puts "3. List books in progress"
+  puts "4. Quit book"
+  puts "5. Edit review"
+  puts "6. List top books by genre"
+  puts "7. Recommend a book"
+  puts "8. Quit application"
   input = gets.chomp.to_i
   case input
   when 1
     user.add_book
   when 2
-    # user.add_review
+    user.add_review
   when 3
     user.list_books_in_progress
-
-  when 7
+  when 5
+    user.edit_review
+  when 6
     Book.top_10_by_genre
     home_screen(user)
-  when 8
+  when 7
     Book.recommend_book
     home_screen(user)
+  when 8
+    puts "Goodbye from GooderBooks!"
   end
 end
