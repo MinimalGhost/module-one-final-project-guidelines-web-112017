@@ -9,7 +9,7 @@ def user_login
   # binding.pry
   user = User.find_by("lower(first_name) = lower(?) AND lower(last_name) = lower(?)", user_name[0], user_name[1])
   if user == nil
-    user = User.new(first_name: user_name[0], last_name: user_name[1])
+    user = User.create(first_name: user_name[0], last_name: user_name[1])
   end
   user
 end

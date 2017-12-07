@@ -76,14 +76,7 @@ class User < ActiveRecord::Base
     book = Book.find_by('lower(title) = ?', book_title)
     puts "Your review for #{book.title} has been deleted!"
     reviewToDelete = Review.find_by(user_id: self.id, book_id: book.id).destroy
-    # home_screen(self)
   end
-
-  # def my_reviews
-  #   self.reviews.each do |r|
-  #
-  #   end
-  # end
 
   def list_books_in_progress
     arr = self.reviews.all.select do |r|
