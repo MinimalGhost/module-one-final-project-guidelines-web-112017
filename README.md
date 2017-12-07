@@ -14,4 +14,5 @@ GooderBooks is a free command line interface application for book lovers that ma
 2. open Terminal
 3. cd into your cloned local repository
 4. type 'bundle install'
-5.
+5. from the top level of your directory, type 'ruby bin/run.rb'
+6. follow the command prompts as desired
