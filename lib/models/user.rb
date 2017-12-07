@@ -23,16 +23,19 @@ class User < ActiveRecord::Base
   def get_reviews_by_book
     book = Book.find_by_title
     if book != nil
-      book.reviews.select do |r|
+      bookList = book.reviews.select do |r|
         r.rating != nil
-      end.each { |r|
-        puts "Title: #{r.book.title}"
-        puts "Rating: #{r.rating}"
-        puts "Description: #{r.description}"
-        puts "______________________________"
-       }
-    else
-      puts "Sorry, that book has not been reviewed yet."
+      end
+      if bookList.length > 0
+        bookList.each { |r|
+          puts "Title: #{r.book.title}"
+          puts "Rating: #{r.rating}"
+          puts "Description: #{r.description}"
+          puts "______________________________"
+         }
+      else
+        puts "Sorry, that book has not been reviewed yet."
+      end
     end
   end
 
