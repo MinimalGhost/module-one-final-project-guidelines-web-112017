@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     else
       #else tell them that book doesnt exist and return user to home screen
       puts "That book does not exist!"
-      home_screen(self)
+      # home_screen(self)
     end
   end
 
@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
     book = Book.find_by(title: book_title)
     myReview = Review.find_by(user_id: self.id, book_id: book.id)
     myReview.edit_review_info
-    home_screen(self)
+    # home_screen(self)
   end
 
   def delete_review
@@ -61,8 +61,14 @@ class User < ActiveRecord::Base
     book = Book.find_by('lower(title) = ?', book_title)
     puts "Your review for #{book.title} has been deleted!"
     reviewToDelete = Review.find_by(user_id: self.id, book_id: book.id).destroy
-    home_screen(self)
+    # home_screen(self)
   end
+
+  # def my_reviews
+  #   self.reviews.each do |r|
+  #
+  #   end
+  # end
 
   def list_books_in_progress
     arr = self.reviews.all.select do |r|
