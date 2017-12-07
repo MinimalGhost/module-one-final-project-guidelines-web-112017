@@ -29,7 +29,6 @@ def home_screen(user)
   puts "10. Top 10 highest rated books by genre"
   puts "11. Get a book recommendation"
   puts "12. Quit application"
-  puts "THIS IS FOR TESTING PURPOSES"
 
   input = gets.chomp.to_i
   case input
