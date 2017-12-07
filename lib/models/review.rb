@@ -3,11 +3,26 @@ class Review < ActiveRecord::Base
   belongs_to :book
 
   def self.top_10_highest_rated
-    best_reviews = Book.joins(:reviews).select("books.*, avg(reviews.rating) as average_rating").group("books.id").order("average_rating DESC")
+    best_reviews = Book.joins(:reviews).select("books.*, avg(reviews.rating) as average_rating").group("books.id").order("average_rating DESC").limit(10)
     # binding.pry
     best_reviews.each do |b|
       puts "Title: #{b.title}"
       puts "Author: #{b.author}"
+      puts "Description: #{b.description}"
+      puts "______________________________"
+    end
+  end
+
+  def self.top_10_by_genre
+    puts "What genre would you like to search?"
+    genre = gets.chomp
+    # Book.all.where("genre = ?", genre).limit(10).each { |b| puts b.title  }
+    best_reviews = Book.joins(:reviews).select("books.*, avg(reviews.rating) as average_rating").where("genre = ?", genre).group("books.id").order("average_rating DESC").limit(10)
+    # binding.pry
+    best_reviews.each do |b|
+      puts "Title: #{b.title}"
+      puts "Author: #{b.author}"
+      puts "Genre: #{b.genre}"
       puts "Description: #{b.description}"
       puts "______________________________"
     end
@@ -82,6 +97,5 @@ class Review < ActiveRecord::Base
       books_in_progress = user.list_books_in_progress
     end
   end
-
 
 end

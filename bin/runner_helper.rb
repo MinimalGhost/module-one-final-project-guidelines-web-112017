@@ -16,13 +16,14 @@ def home_screen(user)
   puts "1. Add a book"
   puts "2. Add a review"
   puts "3. Edit a review"
-  puts "4. Search reviews by book"
-  puts "5. List books in progress"
-  puts "6. Search user books in progress"
-  puts "7. Top 10 highest rated books"
-  puts "8. Top 10 books by genre"
-  puts "9. Get book recommendation"
-  puts "10. Quit application"
+  puts "4. Delete a review"
+  puts "5. Search reviews by book"
+  puts "6. List books in progress"
+  puts "7. Search user books in progress"
+  puts "8. Top 10 highest rated books"
+  puts "9. Top 10 books by genre"
+  puts "10. Get book recommendation"
+  puts "11. Quit application"
 
   input = gets.chomp.to_i
   case input
@@ -36,25 +37,28 @@ def home_screen(user)
     user.edit_review
     home_screen(user)
   when 4
-    user.get_reviews_by_book
+    user.delete_review
     home_screen(user)
   when 5
-    user.list_books_in_progress
+    user.get_reviews_by_book
     home_screen(user)
   when 6
+    user.list_books_in_progress
+    home_screen(user)
+  when 7
     new_user = get_user
     Review.search_user_books_in_progress(new_user)
     home_screen(user)
-  when 7
+  when 8
     Review.top_10_highest_rated
     home_screen(user)
-  when 8
-    Book.top_10_by_genre
-    home_screen(user)
   when 9
-    Book.recommend_book
+    Review.top_10_by_genre
     home_screen(user)
   when 10
+    Book.recommend_book
+    home_screen(user)
+  when 11
     puts "Goodbye from GooderBooks!"
   end
 end

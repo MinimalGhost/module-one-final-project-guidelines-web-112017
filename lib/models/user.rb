@@ -55,15 +55,26 @@ class User < ActiveRecord::Base
     home_screen(self)
   end
 
+  def delete_review
+    puts "Enter the book title for the review you want to delete:"
+    book_title = gets.chomp.downcase
+    book = Book.find_by('lower(title) = ?', book_title)
+    puts "Your review for #{book.title} has been deleted!"
+    reviewToDelete = Review.find_by(user_id: self.id, book_id: book.id).destroy
+    home_screen(self)
+  end
+
   def list_books_in_progress
     arr = self.reviews.all.select do |r|
       r.status == "in progress"
     end.map { |r| r.book_id }
 
-    Book.all.select do |b|
-      arr.any? { |r| r == b.id }
-    end.each_with_index { |book, idx| puts "#{idx+1}. #{book.title}" }
+    if arr.length > 0
+      Book.all.select do |b|
+        arr.any? { |r| r == b.id }
+      end.each_with_index { |book, idx| puts "#{idx+1}. #{book.title}" }
+    else
+      puts "#{self.first_name} #{self.last_name} is not actively reading any books right now."
+    end
   end
-
-
 end
