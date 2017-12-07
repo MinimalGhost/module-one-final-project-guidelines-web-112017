@@ -74,4 +74,14 @@ class Review < ActiveRecord::Base
     self.save
     edit_review_info
   end
+
+  def self.search_user_books_in_progress(user)
+    if user == nil
+      puts "That is not a user, try again"
+    else
+      books_in_progress = user.list_books_in_progress
+    end
+  end
+
+
 end

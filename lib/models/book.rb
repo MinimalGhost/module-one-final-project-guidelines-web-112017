@@ -42,7 +42,7 @@ class Book < ActiveRecord::Base
       validate_year
     end
 
-    if user_input.to_i < Date.today.strftime("%Y").to_i
+    if user_input.to_i <= Date.today.strftime("%Y").to_i
       self.year = user_input
     else
       puts "Invalid year, please enter a year prior to the current year:"
