@@ -27,13 +27,13 @@ book_list = [
 ]
 
 user_list = [
-  ["James Freshley"], ["Andrew Yun"], ["Chris Jones"], ["Mike Jones"], ["Harry Wilson"], ["Kate Ulrich"], ["Maxwell Bellar"], ["Natalie Wilks"],
-  ["Frank DiLeo"], ["Matt Hope"], ["William McDonald"], ["Lisa Hu"], ["Mike Burnett"], ["Steve Jerry"], ["Alex Kende"], ["Sam Jones"],
-  ["Sam Dalsimer"], ["Nadir Ali"], ["Billy Gretch"], ["Charlie Gluckstern"], ["Phillis Arness"], ["Wilma Flintstone"], ["Alexis Yun"],
-  ["Jamie Seager"], ["Julia North"], ["Carol Alistar"], ["Rick Cedar"], ["Adam Voss"], ["Ross Rockafellow"], ["Michael Chapman"], ["Mike Norbeck"],
-  ["Sally Sitwell"], ["Tom Waits"], ["Ben Abelson"], ["James Witherspoon"], ["Zach Morris"], ["Eddie Tulman"], ["Richard Harris"], ["Mardee Singer"],
-  ["Samantha Leigh"], ["Alissa Kalin"], ["Emily English"], ["Ali Green"], ["Susan Sanchez"], ["Craig Gromley"], ["Bill Hader"], ["Vince Gilligan"],
-  ["Eric Kollegger"], ["Humzah Choudrey"], ["Alana Mills"]
+  ["James", "Freshley"], ["Andrew", "Yun"], ["Chris", "Jones"], ["Mike", "Jones"], ["Harry", "Wilson"], ["Kate", "Ulrich"], ["Maxwell", "Bellar"], ["Natalie", "Wilks"],
+  ["Frank", "DiLeo"], ["Matt", "Hope"], ["William", "McDonald"], ["Lisa", "Hu"], ["Mike", "Burnett"], ["Steve", "Jerry"], ["Alex", "Kende"], ["Sam", "Jones"],
+  ["Sam", "Dalsimer"], ["Nadir", "Ali"], ["Billy", "Gretch"], ["Charlie", "Gluckstern"], ["Phillis", "Arness"], ["Wilma", "Flintstone"], ["Alexis", "Yun"],
+  ["Jamie", "Seager"], ["Julia", "North"], ["Carol", "Alistar"], ["Rick", "Cedar"], ["Adam", "Voss"], ["Ross", "Rockafellow"], ["Michael", "Chapman"], ["Mike", "Norbeck"],
+  ["Sally", "Sitwell"], ["Tom", "Waits"], ["Ben", "Abelson"], ["James", "Witherspoon"], ["Zach", "Morris"], ["Eddie", "Tulman"], ["Richard", "Harris"], ["Mardee", "Singer"],
+  ["Samantha", "Leigh"], ["Alissa", "Kalin"], ["Emily", "English"], ["Ali", "Green"], ["Susan", "Sanchez"], ["Craig", "Gromley"], ["Bill", "Hader"], ["Vince", "Gilligan"],
+  ["Eric", "Kollegger"], ["Humzah", "Choudrey"], ["Alana", "Mills"]
 ]
 
 
@@ -44,5 +44,12 @@ book_list.each do |title, author, genre, year, description|
   genre: genre,
   year: year,
   description: description
+  )
+end
+
+user_list.each do |first_name, last_name|
+  User.create(
+  first_name: first_name,
+  last_name: last_name
   )
 end
