@@ -24,9 +24,10 @@ class Review < ActiveRecord::Base
     puts "Rate this book between 0 and 5"
     user_rating = Integer(gets) rescue -1
     if user_rating.to_i > 5 || user_rating.to_i < 0
-      add_review_info
-    end
+      enter_review_rating
+    else
     self.rating = user_rating.to_i
+  end
   end
 
   def enter_review_description
@@ -76,11 +77,7 @@ class Review < ActiveRecord::Base
   end
 
   def self.search_user_books_in_progress(user)
-    if user == nil
-      puts "That is not a user, try again"
-    else
-      books_in_progress = user.list_books_in_progress
-    end
+    books_in_progress = user.list_books_in_progress
   end
 
 

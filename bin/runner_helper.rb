@@ -7,13 +7,17 @@ def user_login
 
   # Return or create user instance if none found
   # binding.pry
-  User.find_or_create_by(first_name: user_name[0], last_name: user_name[1])
+  user = User.find_by("lower(first_name) = lower(?) AND lower(last_name) = lower(?)", user_name[0], user_name[1])
+  if user == nil
+    user = User.new(first_name: user_name[0], last_name: user_name[1])
+  end
+  user
 end
 
 def home_screen(user)
   puts "Welcome #{user.first_name} #{user.last_name}"
   puts "Your commands options are"
-  puts "1. Add a book"
+  puts "1. Start a book"
   puts "2. Add a review"
   puts "3. Edit a review"
   puts "4. Search reviews by book"
@@ -62,5 +66,9 @@ end
 def get_user
   puts "Enter user name"
   user_name = gets.chomp.downcase.split(' ')
-  User.find_by("lower(first_name) = ? AND lower(last_name) = ?", user_name[0], user_name[1])
+  user = User.find_by("lower(first_name) = ? AND lower(last_name) = ?", user_name[0], user_name[1])
+  if user == nil
+    puts "That is not a user, try again"
+    get_user
+  end
 end
