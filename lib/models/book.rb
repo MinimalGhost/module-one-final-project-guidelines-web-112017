@@ -42,14 +42,14 @@ class Book < ActiveRecord::Base
       user_input = Integer(gets)
     rescue
       puts "Invalid year, please enter the year your book was published:"
-      validate_year
+      enter_book_year
     end
 
     if user_input.to_i <= Date.today.strftime("%Y").to_i
       self.year = user_input
     else
       puts "Invalid year, please enter a year prior to the current year:"
-      validate_year
+      enter_book_year
     end
   end
 
@@ -62,7 +62,6 @@ class Book < ActiveRecord::Base
   def self.find_by_title
     puts "Enter book title:"
     input = gets.chomp.downcase
-    #book = Book.find_by(title: input)
     book = Book.find_by("lower(title) = ?", input)
     if book
       return book

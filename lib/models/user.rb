@@ -3,10 +3,13 @@ class User < ActiveRecord::Base
   has_many :books, through: :reviews
 
   def add_book
-    puts "Type the title of the book you would like to add:"
-    book_title = gets.chomp
-    book = Book.find_or_create_by(title: book_title)
-    if book.genre == nil
+    puts "Type the title of the book you would like to start:"
+
+    title = gets.chomp
+    book = Book.find_by("lower(title) = lower(?)", title)
+    if book == nil
+      puts "That book does not exist in our database, please add book info."
+      book = Book.create(title: title)
       book.add_book_info
     end
     start_book(book)
@@ -14,17 +17,20 @@ class User < ActiveRecord::Base
 
   def start_book(book)
     Review.create(book_id: book.id, user_id: self.id, start_date: Date.new, status: "in progress")
+    puts "You have started reading #{book.title}"
   end
 
   def get_reviews_by_book
     book = Book.find_by_title
     if book != nil
-      book.reviews.each do |r|
+      book.reviews.select do |r|
+        r.rating != nil
+      end.each { |r|
         puts "Title: #{r.book.title}"
         puts "Rating: #{r.rating}"
         puts "Description: #{r.description}"
         puts "______________________________"
-      end
+       }
     else
       puts "Sorry, that book has not been reviewed yet."
     end
@@ -42,7 +48,6 @@ class User < ActiveRecord::Base
     else
       #else tell them that book doesnt exist and return user to home screen
       puts "That book does not exist!"
-      # home_screen(self)
     end
   end
 
@@ -50,9 +55,16 @@ class User < ActiveRecord::Base
     puts "Enter the book title for the review you want to edit:"
     book_title = gets.chomp
     book = Book.find_by(title: book_title)
-    myReview = Review.find_by(user_id: self.id, book_id: book.id)
-    myReview.edit_review_info
-    # home_screen(self)
+    if book != nil
+      myReview = Review.find_by(user_id: self.id, book_id: book.id)
+      if myReview != nil
+        myReview.edit_review_info
+      else
+        puts "You do not have a review to edit for this book"
+      end
+    else
+      Puts "thats not a book we have, please add it to database using the 1. command."
+    end
   end
 
   def delete_review
