@@ -18,11 +18,15 @@ class User < ActiveRecord::Base
 
   def get_reviews_by_book
     book = Book.find_by_title
-    book.reviews.each do |r|
-      puts "Title: #{r.book.title}"
-      puts "Rating: #{r.rating}"
-      puts "Description: #{r.description}"
-      puts "______________________________"
+    if book != nil
+      book.reviews.each do |r|
+        puts "Title: #{r.book.title}"
+        puts "Rating: #{r.rating}"
+        puts "Description: #{r.description}"
+        puts "______________________________"
+      end
+    else
+      puts "Sorry, that book has not been reviewed yet."
     end
   end
 
@@ -60,4 +64,6 @@ class User < ActiveRecord::Base
       arr.any? { |r| r == b.id }
     end.each_with_index { |book, idx| puts "#{idx+1}. #{book.title}" }
   end
+
+
 end

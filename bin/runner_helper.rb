@@ -22,6 +22,7 @@ def home_screen(user)
   puts "7. Top 10 highest rated books"
   puts "8. Recommend a book"
   puts "9. Quit application"
+  puts "10. Search user books in progress"
   input = gets.chomp.to_i
   case input
   when 1
@@ -50,5 +51,15 @@ def home_screen(user)
     home_screen(user)
   when 9
     puts "Goodbye from GooderBooks!"
+  when 10
+    new_user = get_user
+    Review.search_user_books_in_progress(new_user)
+    home_screen(user)
   end
+end
+
+def get_user
+  puts "Enter user name"
+  user_name = gets.chomp.downcase.split(' ')
+  User.find_by("lower(first_name) = ? AND lower(last_name) = ?", user_name[0], user_name[1])
 end
