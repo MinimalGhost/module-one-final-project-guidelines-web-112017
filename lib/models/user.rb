@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
         puts "You do not have a review to edit for this book"
       end
     else
-      Puts "thats not a book we have, please add it to database using the 1. command."
+      puts "thats not a book we have, please add it to database using the 1. command."
     end
   end
 
@@ -74,8 +74,17 @@ class User < ActiveRecord::Base
     puts "Enter the book title for the review you want to delete:"
     book_title = gets.chomp.downcase
     book = Book.find_by('lower(title) = ?', book_title)
-    puts "Your review for #{book.title} has been deleted!"
-    reviewToDelete = Review.find_by(user_id: self.id, book_id: book.id).destroy
+    if book != nil
+      puts "Your review for #{book.title} has been deleted!"
+      my_rev = Review.find_by(user_id: self.id, book_id: book.id)
+      if my_rev != nil
+        my_rev.destroy
+      else
+        puts "You do not have a review for that book"
+      end
+    else
+      puts "That book does not exist!"
+    end
   end
 
   def list_books_in_progress
