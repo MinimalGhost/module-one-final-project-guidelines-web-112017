@@ -66,7 +66,7 @@ class Book < ActiveRecord::Base
     if book
       return book
     else
-      puts "No book found, please add book"
+      puts "No book found matching that title found, please start a new book."
     end
   end
 end
