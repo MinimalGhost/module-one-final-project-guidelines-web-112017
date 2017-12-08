@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
     #look up book by title and compare id with Review.book_id and self.id with Review.user_id
     book = Book.find_by(title: book_to_review)
     #if there is a match, allow them to update review instance
-    if book.title = book_to_review
+    if book != nil
       myReview = Review.find_or_create_by(user_id: self.id, book_id: book.id)
       myReview.add_review_info
     else
