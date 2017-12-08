@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
   def edit_review
     puts "Enter the book title for the review you want to edit:"
     book_title = gets.chomp
-    book = Book.find_by(title: book_title)
+    book = Book.find_by("lower(title) = lower(?)", book_title)
     if book != nil
       myReview = Review.find_by(user_id: self.id, book_id: book.id)
       if myReview != nil
